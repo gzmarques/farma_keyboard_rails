@@ -1,5 +1,7 @@
 require "farma_keyboard_rails/version"
+require "farma_keyboard_rails/engine"
 
 module FarmaKeyboardRails
-  # Your code goes here...
+  class Engine < Rails::Engine
+  end
 end
