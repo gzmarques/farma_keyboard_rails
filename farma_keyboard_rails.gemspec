@@ -36,4 +36,6 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "mathjax-rails"
   spec.add_dependency "handlebars_assets"
+  spec.add_dependency "codemirror-rails"
+  spec.add_dependency "materialize-sass"
 end
