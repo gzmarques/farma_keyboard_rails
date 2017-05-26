@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Guilherme Zacalusni Marques"]
   spec.email         = ["gzmarques90@gmail.com"]
 
-  # spec.summary       = %q{TODO: Write a short summary, because Rubygems requires one.}
+  spec.summary       = "This gem is intended to create a js keyboard to make a MathJax interface for sending answers and stuff."
   # spec.description   = %q{TODO: Write a longer description or delete this line.}
   spec.homepage      = "https://github.com/gzmarques/farma_keyboard_rails"
   spec.license       = "MIT"
