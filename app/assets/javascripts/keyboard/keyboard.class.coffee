@@ -1,14 +1,17 @@
 #= require_tree ../templates
 class window.FARMA.Keyboard
 
-  @preLoad: (id) ->
+  @preLoad: (config) ->
+    id = config['id']
     obj = $(document).find("#keyboard-panel-#{id}")
     if obj.hasClass("keyboard-active")
       $("#keyboard-#{id}").show()
     else
-      new window.FARMA.Keyboard(id)
+      new window.FARMA.Keyboard(config)
 
-  constructor: (id) ->
+  constructor: (config) ->
+    id = config['id']
+    @config = config
     self = $("#keyboard-panel-#{id}")
     @id = id
     @screen = new window.FARMA.Screen()
@@ -66,6 +69,7 @@ class window.FARMA.Keyboard
   onSubmit: (editor) ->
     id = @id
     self = @screen
+    config = @config
 
     $("#keyboard-#{id} button[type='submit']").on 'click', ->
       if editor
@@ -76,9 +80,11 @@ class window.FARMA.Keyboard
       # $("#question_#{id}_response").val($("#keyboard-#{id}-screen").val())
       $("#question-#{id}-show .box-response").show()
 
-      response_container = $("#keyboard-panel-#{id}").data('response-container')
+      answer_container = config['answer-container']
+      correct_container = config['correct-container']
+      # $(answer_container).html($("#keyboard-#{id}-screen").val())
       $.post
-        url: $("#keyboard-panel-#{id}").data('bucket')
+        url: config['send-answer-to']
         data: {
           answer: {
             response: $("#keyboard-#{id}-screen").val()
@@ -86,10 +92,11 @@ class window.FARMA.Keyboard
           }
         dataType: "json",
         success: (data) ->
-          $(response_container).html(data.response)
-          $(response_container).removeClass('invalid').removeClass('valid');
+          $(answer_container).html(data.response)
+          $(correct_container).html(data.correct)
+          $(answer_container).removeClass('invalid').removeClass('valid');
           cssClass = if data.correct_answer then 'valid' else 'invalid'
-          $(response_container).addClass(cssClass);
+          $(answer_container).addClass(cssClass);
 
   hotKeyHandler: ->
     self = @screen
